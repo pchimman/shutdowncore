@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.VisualBasic;
 using System;
 using System.IO;
 
@@ -34,6 +36,7 @@ namespace shutdowncore
             lifetime.ApplicationStarted.Register(OnAppStarted);
             lifetime.ApplicationStopping.Register(OnAppStopping);
             lifetime.ApplicationStopped.Register(OnAppStopped);
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -70,7 +73,8 @@ namespace shutdowncore
             {
                 string path = $"{env.WebRootPath}/AppLog.txt";
                 Console.WriteLine(path);
-                string contents = $"App stopping at {DateTime.Now}";
+                string contents = $"App stopping at {DateTime.Now }";
+               // lifetime.ApplicationStopping.IsCancellationRequested.ToString();
                 File.AppendAllText(path, contents);
 
             }
